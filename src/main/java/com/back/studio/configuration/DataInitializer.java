@@ -12,7 +12,9 @@ import com.back.studio.products.GalleryItem.GalleryItemRequest;
 import com.back.studio.products.GalleryItem.service.GalleryItemService;
 import com.back.studio.products.Product.ProductRequest;
 import com.back.studio.products.Product.service.ProductService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -32,14 +34,21 @@ public class DataInitializer {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
+    @PostConstruct
     CommandLineRunner init() {
         log.info("Initializing data...");
+        userRepository.findByEmail("admin@admin.com").ifPresentOrElse(
+                user -> log.info("User with email [{}] already exists", user.getEmail()),
+                () -> {
+                    User user = new User();
+                    user.setEmail("admin@admin.com");
+                    user.setConfirmed(true);
+                    user.setPassword(passwordEncoder.encode("admin"));
+                    user.setRole(Role.ADMIN);
+                    log.info("User with email [{}] created", userRepository.save(user).getEmail());
+                }
+        );
         return args -> {
-            User user = new User();
-            user.setEmail("admin@admin.com");
-            user.setPassword(passwordEncoder.encode("admin"));
-            user.setRole(Role.ADMIN);
-            userRepository.save(user);
             //createCategoriesWithProducts();
         };
     }
