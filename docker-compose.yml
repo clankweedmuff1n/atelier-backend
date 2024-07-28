@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - '8000:8000'
+    container_name: atelier-api
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/atelierdb
+      - SPRING_DATASOURCE_USERNAME=atelier-user
+      - SPRING_DATASOURCE_PASSWORD=k9ZqLC
+    links:
+      - 'db:database'
+  db:
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_USER: atelier-user
+      POSTGRES_PASSWORD: k9ZqLC
+      POSTGRES_DB: atelierdb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 6432:5432
+volumes:
+  db-data:
+    driver: local
