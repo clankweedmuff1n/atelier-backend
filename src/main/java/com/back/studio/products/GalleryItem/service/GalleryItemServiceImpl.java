@@ -25,7 +25,6 @@ public class GalleryItemServiceImpl implements GalleryItemService {
     public GalleryItem createGalleryItem(MultipartFile file, String width, String height) {
         String oldFileName = file.getOriginalFilename();
         String newFileName = storageService.store(file);
-        System.out.println(newFileName);
         return galleryItemRepository.save(mapper.toGalleryItem(newFileName, oldFileName, oldFileName, Integer.parseInt(width), Integer.parseInt(height)));
     }
 

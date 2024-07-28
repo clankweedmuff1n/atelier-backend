@@ -13,6 +13,7 @@ import com.back.studio.products.GalleryItem.service.GalleryItemService;
 import com.back.studio.products.Product.ProductRequest;
 import com.back.studio.products.Product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DataInitializer {
 
     private final UserRepository userRepository;
@@ -31,9 +33,10 @@ public class DataInitializer {
 
     @Bean
     CommandLineRunner init() {
+        log.info("Initializing data...");
         return args -> {
             User user = new User();
-            user.setEmail("admin@admin.con");
+            user.setEmail("admin@admin.com");
             user.setPassword(passwordEncoder.encode("admin"));
             user.setRole(Role.ADMIN);
             userRepository.save(user);

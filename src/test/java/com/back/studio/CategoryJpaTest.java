@@ -23,6 +23,5 @@ public class CategoryJpaTest {
                 .description("test")
                 .build();
         repository.save(category);
-        System.out.println("SIZE " + repository.findAll().size());
     }*/
 }

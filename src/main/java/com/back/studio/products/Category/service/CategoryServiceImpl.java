@@ -56,8 +56,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .build();
 
         product = productRepository.save(product);
-
-        System.out.println(categoryRepository.findAll());
     }
 
     public List<Category> getAll() {

@@ -29,7 +29,6 @@ public class CartController {
             HttpServletRequest request,
             @PathVariable String productId
     ) {
-        System.out.println("TEST");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
 
