@@ -33,7 +33,7 @@ public class WishListServiceImpl implements WishListService {
         }
 
         wishList.add(product);
-        userService.updateUser(managedUser);
+        System.out.println(userService.updateUser(managedUser));
     }
 
     @Override

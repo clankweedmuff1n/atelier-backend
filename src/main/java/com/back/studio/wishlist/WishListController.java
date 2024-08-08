@@ -32,6 +32,7 @@ public class WishListController {
         User user = (User) authentication.getPrincipal();
 
         wishListService.addToWishList(productService.getById(Long.valueOf(productId)), user);
+        System.out.println("added");
         return ResponseEntity.ok(ApiResponse.of(
                 new Date(),
                 HttpStatus.OK,
