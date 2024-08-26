@@ -1,9 +1,6 @@
 package com.back.studio;
 
-import com.back.studio.products.Category.Category;
-import com.back.studio.products.Category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
