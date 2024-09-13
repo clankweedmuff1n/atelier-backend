@@ -1,10 +1,5 @@
 package com.back.studio.auth;
 
-import com.back.studio.auth.requests.AuthenticationRequest;
-import com.back.studio.auth.responses.AuthenticationResponse;
-import com.back.studio.auth.requests.RegisterRequest;
-import com.back.studio.auth.user.User;
-import com.back.studio.auth.user.UserRepository;
 import com.back.studio.auth.user.confirmCode.ConfirmCode;
 import com.back.studio.auth.user.confirmCode.ConfirmCodeRepository;
 import com.back.studio.auth.user.resetCode.ResetCode;
@@ -14,6 +9,11 @@ import com.back.studio.auth.user.token.TokenRepository;
 import com.back.studio.auth.user.token.TokenType;
 import com.back.studio.configuration.JwtService;
 import com.back.studio.email.EmailServiceImpl;
+import com.back.studio.auth.requests.AuthenticationRequest;
+import com.back.studio.auth.responses.AuthenticationResponse;
+import com.back.studio.auth.requests.RegisterRequest;
+import com.back.studio.auth.user.User;
+import com.back.studio.auth.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -85,7 +85,7 @@ public class UserService {
     }
 
     private void sendConfirmationEmail(User user, String code) {
-        String emailContent = String.format("""
+        /*String emailContent = String.format("""
                 <div style="width: 100%%; display: flex; margin: 0 auto; justify-content: center; justify-items: center;">
                     <div style="max-width: 600px;">
                         <div style="margin: 0 auto;text-align: center;">
@@ -106,7 +106,7 @@ public class UserService {
                     </div>
                 </div>
                 """, code);
-        emailService.sendSimpleMessage(user.getEmail(), "Account confirmation", emailContent);
+        emailService.sendSimpleMessage(user.getEmail(), "Account confirmation", emailContent);*/
     }
 
     public User confirmAccount(String id) {
@@ -230,7 +230,7 @@ public class UserService {
     }
 
     private void sendResetEmail(User user, String resetLink) {
-        String emailContent = String.format("""
+        /*String emailContent = String.format("%s"*//*"""
                 <div style="max-width: 600px;">
                    <div style="margin: 0 auto;text-align: center;">
                       <img width="auto" height="auto"
@@ -261,7 +261,7 @@ public class UserService {
                       <br>All rights reserved.
                    </div>
                 </div>
-                """, resetLink);
-        emailService.sendSimpleMessage(user.getEmail(), "Reset your password", emailContent);
+                """*//*, resetLink);
+        emailService.sendSimpleMessage(user.getEmail(), "Reset your password", emailContent);*/
     }
 }
