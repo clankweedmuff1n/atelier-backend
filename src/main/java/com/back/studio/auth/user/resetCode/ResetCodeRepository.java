@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface ResetCodeRepository extends JpaRepository<ResetCode, Integer> {
     Optional<ResetCode> findByUser(User user);
+
     Optional<ResetCode> findByCode(String code);
 }

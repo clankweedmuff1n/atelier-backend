@@ -1,8 +1,8 @@
 package com.back.studio.auth;
 
 import com.back.studio.auth.requests.AuthenticationRequest;
-import com.back.studio.auth.responses.AuthenticationResponse;
 import com.back.studio.auth.requests.RegisterRequest;
+import com.back.studio.auth.responses.AuthenticationResponse;
 import com.back.studio.auth.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

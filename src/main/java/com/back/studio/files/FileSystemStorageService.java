@@ -32,11 +32,28 @@ public class FileSystemStorageService implements StorageService {
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
 
-        if(properties.getLocation().trim().length() == 0){
+        if (properties.getLocation().trim().length() == 0) {
             throw new StorageException("File upload location can not be Empty.");
         }
 
         this.rootLocation = Paths.get(properties.getLocation());
+    }
+
+    private static String getNewName(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new StorageException("Failed to store empty file.");
+        }
+
+        // Generate a random UUID for the file name
+        String originalFilename = file.getOriginalFilename();
+        String fileExtension = "";
+
+        // Extract file extension
+        if (originalFilename != null && originalFilename.contains(".")) {
+            int dotIndex = originalFilename.lastIndexOf('.');
+            fileExtension = originalFilename.substring(dotIndex);
+        }
+        return fileExtension;
     }
 
     @Override
@@ -66,31 +83,13 @@ public class FileSystemStorageService implements StorageService {
         }
     }
 
-    private static String getNewName(MultipartFile file) {
-        if (file.isEmpty()) {
-            throw new StorageException("Failed to store empty file.");
-        }
-
-        // Generate a random UUID for the file name
-        String originalFilename = file.getOriginalFilename();
-        String fileExtension = "";
-
-        // Extract file extension
-        if (originalFilename != null && originalFilename.contains(".")) {
-            int dotIndex = originalFilename.lastIndexOf('.');
-            fileExtension = originalFilename.substring(dotIndex);
-        }
-        return fileExtension;
-    }
-
     @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
                     .filter(path -> !path.equals(this.rootLocation))
                     .map(this.rootLocation::relativize);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
 
@@ -108,14 +107,12 @@ public class FileSystemStorageService implements StorageService {
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
-            }
-            else {
+            } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
 
             }
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -129,8 +126,7 @@ public class FileSystemStorageService implements StorageService {
     public void init() {
         try {
             Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
     }
@@ -219,7 +215,7 @@ public class FileSystemStorageService implements StorageService {
     private void resizeImage(Path sourcePath, Path destinationPath, int width) throws IOException {
         Thumbnails.of(sourcePath.toFile())
                 .width(width)
-                    .toFile(destinationPath.toFile());
+                .toFile(destinationPath.toFile());
     }
     /*private void resizeImage(Path sourcePath, Path destinationPath, int width) throws IOException {
         try (InputStream inputStream = Files.newInputStream(sourcePath);

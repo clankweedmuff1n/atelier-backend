@@ -3,7 +3,6 @@ package com.back.studio.cart;
 import com.back.studio.auth.responses.ApiResponse;
 import com.back.studio.auth.user.User;
 import com.back.studio.cart.service.CartService;
-import com.back.studio.products.Product.Product;
 import com.back.studio.products.Product.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

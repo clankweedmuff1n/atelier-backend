@@ -1,5 +1,10 @@
 package com.back.studio.auth;
 
+import com.back.studio.auth.requests.AuthenticationRequest;
+import com.back.studio.auth.requests.RegisterRequest;
+import com.back.studio.auth.responses.AuthenticationResponse;
+import com.back.studio.auth.user.User;
+import com.back.studio.auth.user.UserRepository;
 import com.back.studio.auth.user.confirmCode.ConfirmCode;
 import com.back.studio.auth.user.confirmCode.ConfirmCodeRepository;
 import com.back.studio.auth.user.resetCode.ResetCode;
@@ -9,11 +14,6 @@ import com.back.studio.auth.user.token.TokenRepository;
 import com.back.studio.auth.user.token.TokenType;
 import com.back.studio.configuration.JwtService;
 import com.back.studio.email.EmailServiceImpl;
-import com.back.studio.auth.requests.AuthenticationRequest;
-import com.back.studio.auth.responses.AuthenticationResponse;
-import com.back.studio.auth.requests.RegisterRequest;
-import com.back.studio.auth.user.User;
-import com.back.studio.auth.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -81,7 +81,9 @@ public class UserService {
                 .code(String.valueOf(random.nextInt(900000) + 100000))
                 .user(user)
                 .build();
-        return confirmCodeRepository.save(confirmCode);
+        ConfirmCode code = confirmCodeRepository.save(confirmCode);
+        System.out.println(code);
+        return code;
     }
 
     private void sendConfirmationEmail(User user, String code) {
@@ -149,10 +151,11 @@ public class UserService {
     public User updateUser(User user) {
         userRepository.findById(user.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
         return userRepository.save(user);
     }
 
-    public List<User> getUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public List<User> getUsers(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = extractToken(request);
         String userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {

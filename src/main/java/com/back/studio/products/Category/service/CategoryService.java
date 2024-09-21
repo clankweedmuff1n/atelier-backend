@@ -9,9 +9,14 @@ import java.util.List;
 
 public interface CategoryService {
     Category createCategory(CategoryRequest categoryRequest);
+
     List<Category> createCategoryAll(List<CategoryRequest> categoryRequests);
+
     List<Category> getAll();
+
     Category getByLink(String link);
+
     Category getByProduct(Product product);
+
     Category getById(Long id);
 }

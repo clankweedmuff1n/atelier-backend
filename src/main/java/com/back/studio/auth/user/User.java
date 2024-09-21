@@ -23,12 +23,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="_user")
+@Table(name = "_user")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    private  Integer id;
+    private Integer id;
     @JsonProperty(value = "first_name")
     private String firstname;
     @JsonProperty(value = "last_name")
@@ -47,6 +47,20 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     private ConfirmCode confirmCode;
+    @ManyToMany
+    @JoinTable(
+            name = "user_cart",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> cart;
+    @ManyToMany
+    @JoinTable(
+            name = "user_wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> wishlist;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -77,20 +91,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_cart",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> cart;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_wishlist",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> wishlist;
 }

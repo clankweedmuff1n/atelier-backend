@@ -17,6 +17,7 @@ public class ApiResponse {
     private final HttpStatus status;
     private final String message;
     private final String path;
+
     public static ApiResponse of(Date timestamp, HttpStatus status, String message, String path) {
         return new ApiResponse(timestamp, status, message, path);
     }

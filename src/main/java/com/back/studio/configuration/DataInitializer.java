@@ -1,29 +1,15 @@
 package com.back.studio.configuration;
 
-import com.back.studio.auth.UserService;
 import com.back.studio.auth.user.Role;
 import com.back.studio.auth.user.User;
 import com.back.studio.auth.user.UserRepository;
-import com.back.studio.products.Category.Category;
-import com.back.studio.products.Category.CategoryRequest;
-import com.back.studio.products.Category.service.CategoryService;
-import com.back.studio.products.GalleryItem.GalleryItem;
-import com.back.studio.products.GalleryItem.GalleryItemRequest;
-import com.back.studio.products.GalleryItem.service.GalleryItemService;
-import com.back.studio.products.Product.ProductRequest;
-import com.back.studio.products.Product.service.ProductService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor

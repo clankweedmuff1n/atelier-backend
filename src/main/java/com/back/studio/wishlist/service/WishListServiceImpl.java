@@ -17,7 +17,7 @@ import java.util.Set;
 public class WishListServiceImpl implements WishListService {
     private final UserService userService;
     private final ProductService productService;
-    
+
     @Override
     public void addToWishList(Product product, User user) {
         if (product == null || user == null) {

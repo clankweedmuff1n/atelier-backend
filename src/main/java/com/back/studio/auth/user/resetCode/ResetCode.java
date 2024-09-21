@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="_res_code")
+@Table(name = "_res_code")
 public class ResetCode {
     @Id
     @GeneratedValue
-    private  Integer id;
+    private Integer id;
     private String code;
     @OneToOne
     @JoinColumn(name = "user_id")

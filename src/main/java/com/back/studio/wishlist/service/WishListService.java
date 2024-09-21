@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface WishListService {
     void addToWishList(Product product, User user);
+
     void addToWishListAll(List<Product> products, User user);
+
     void removeFromWishList(Long productId, User user);
 }

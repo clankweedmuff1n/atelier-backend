@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface ConfirmCodeRepository extends JpaRepository<ConfirmCode, Integer> {
     Optional<ConfirmCode> findByUser(User user);
+
     Optional<ConfirmCode> findByCode(String code);
 }

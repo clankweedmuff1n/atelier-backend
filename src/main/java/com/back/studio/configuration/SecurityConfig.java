@@ -1,7 +1,6 @@
 package com.back.studio.configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -46,12 +45,12 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
-                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler(((request, response, authentication) ->
-                                        SecurityContextHolder.clearContext())
-                                )
-                                //.logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/auth/logout", "OPTIONS"))
+                                logout.logoutUrl("/api/v1/auth/logout")
+                                        .addLogoutHandler(logoutHandler)
+                                        .logoutSuccessHandler(((request, response, authentication) ->
+                                                SecurityContextHolder.clearContext())
+                                        )
+                        //.logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/auth/logout", "OPTIONS"))
                 );
 
 
